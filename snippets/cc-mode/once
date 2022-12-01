@@ -1,0 +1,12 @@
+#name : once
+# --
+#ifndef ${1:_`(upcase (concat (parent-dir-name buffer-file-name) "_"
+                             (replace-regexp-in-string
+                             "\[ \.-\]"
+                             "_"
+                             (file-name-nondirectory (buffer-file-name)))))`}
+#define $1 2
+
+$0
+
+#endif /* $1 */

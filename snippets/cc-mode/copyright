@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: copyright
+# key: copyright
+# --
+/*
+ * Copyright (c) 2020-`(substring (current-time-string) -4)`. All Rights Reserved.
+ * This code is licensed under MIT License (see LICENSE.txt for details)
+ *
+ * Author: `user-full-name` <`user-mail-address`>
+ *
+ * file : `(file-name-nondirectory (buffer-file-name))`
+ *
+ */
