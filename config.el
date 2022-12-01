@@ -3,6 +3,24 @@
 (setq user-full-name "Prem Mallappa"
       user-mail-address "prem.mallappa@gmail.com")
 
+
+;; Enable *sratch* buffer to work in `lisp-interaction-mode'.
+(setq doom-scratch-initial-major-mode 'lisp-interaction-mode)
+
+(add-load-path! "lisp/")
+
+
+;; ~/.doom.d/
+;;     lisp/
+;;         package-1/*.el
+;;         package-2/*.el
+;;         package-3/*.el
+;; Adding above packages-* to load-path so that we can use `require`
+;; or `def-package!` or `use-package`'
+(let ((default-directory (expand-file-name "lisp" doom-private-dir)))
+  (add-load-path! default-directory)
+        )
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -15,8 +33,12 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 24)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 36)
+      doom-variable-pitch-font (font-spec :family "Overpass" :size 24)
+      doom-unicode-font (font-spec :family "JuliaMono")
+      doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -68,14 +90,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; (after! org
-;;   (use-package! org-present)
-;;   ;;:straight t
-;;   ;;:if (not my/remote-server)
-;;   ;;:commands (org-present)
-;; )
-
-(load! "+user.el")
-(load! "+org.el")
+;;(load! "+user.el")
+;;(load! "+org.el")
 (load! "+ui.el")
-(load! "+misc.el")
+;;(load! "+misc.el")

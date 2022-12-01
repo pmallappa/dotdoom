@@ -26,10 +26,15 @@
 ;;;
 ;; ORG-SHOW to reveal emphasis markers when moving the cursor over them
 ;;;
-(use-package! org-show
-  :load-path "lisp/org-show"
-  :config
+  (package! org-show
+    :recipe (:local-repo (expand-file-name "lisp/org-show" doom-private-dir)
+             :files ("org-show.el"))
+    ;; :config
   )
+
+(after! org
+  (use-package! org-show)
+ )
 
 ;;;
 ;; ORG-PRESENT

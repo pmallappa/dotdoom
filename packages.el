@@ -60,10 +60,20 @@
 ;; Vim (and evil) move the cursor one character back when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+;;;
+(package! emacs-snippets
+  :recipe (:host github
+           :repo "hlissner/emacs-snippets"
+           :files ("*")))
+
+
+(package! yasnippet-snippets
+  :recipe (:host github
+           :repo "AndreaCrotti/yasnippet-snippets"
+           :files ("*")))
+
 (package! leetcode
   :recipe (:host github :repo "kaiwk/leetcode.el"
            :files ("leetcode.el")
            )
   )
-
-(package! org-present)
