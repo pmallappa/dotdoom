@@ -26,21 +26,32 @@
 ;;;
 ;; ORG-SHOW to reveal emphasis markers when moving the cursor over them
 ;;;
-  (package! org-show
-    :recipe (:local-repo (expand-file-name "lisp/org-show" doom-private-dir)
-             :files ("org-show.el"))
-    ;; :config
+(package! org-slideshow
+  :recipe (:host github
+           :repo  "pmallappa/org-slideshow"
+           :files ("org-slideshow.el"))
+           ;;; Avoid having to run "doom sync" everytime, when the package
+           ;;; is changed, only useful if the package is bieng developed
+           ;;;:build (:not compile)
   )
-
-(after! org
-  (use-package! org-show)
- )
-
 ;;;
 ;; ORG-PRESENT
 ;;   Make any org file an presentation
 ;;;
-(package! org-present)
-(after! org
-  (use-package! org-present)
+;;(package! org-present)
+;;(after! org
+;;  (use-package! org-present)
+;;  )
+
+(package! org-superstar)
+
+
+(package! org-super-agenda)
+
+;;;
+;; Use contributed packages
+(package! org-contrib
+  :recipe (:host nil :repo "https://git.sr.ht/~bzg/org-contrib"
+           :files ("lisp/*.el"))
+  ;;pin: "e6cb6ca42f5bbb74825e81fd645b00e17a673da4"
   )

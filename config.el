@@ -7,20 +7,6 @@
 ;; Enable *sratch* buffer to work in `lisp-interaction-mode'.
 (setq doom-scratch-initial-major-mode 'lisp-interaction-mode)
 
-(add-load-path! "lisp/")
-
-
-;; ~/.doom.d/
-;;     lisp/
-;;         package-1/*.el
-;;         package-2/*.el
-;;         package-3/*.el
-;; Adding above packages-* to load-path so that we can use `require`
-;; or `def-package!` or `use-package`'
-(let ((default-directory (expand-file-name "lisp" doom-private-dir)))
-  (add-load-path! default-directory)
-        )
-
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
 ;; - `doom-font' -- the primary font to use
@@ -33,11 +19,11 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrains Mono" :size 24)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 36)
-      doom-variable-pitch-font (font-spec :family "Overpass" :size 24)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16)
+      doom-big-font (font-spec :family "JetBrains Mono" :size 26)
+      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 16)
       doom-unicode-font (font-spec :family "JuliaMono")
-      doom-serif-font (font-spec :family "IBM Plex Mono" :weight 'light))
+      doom-serif-font (font-spec :family "Noto Serif" :weight 'regular))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
@@ -56,7 +42,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
+(setq org-directory "~/Org/")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
