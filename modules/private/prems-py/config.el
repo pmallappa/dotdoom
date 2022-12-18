@@ -11,11 +11,19 @@
 
 
 (setq flycheck-python-pylint-executable "pylint")
-(use-package! lsp-pyright
-  :config
-  (setq lsp-clients-python-command "pyright")
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
+;;(use-package! lsp-pyright
+;;  :config
+;;  (setq lsp-clients-python-command "pyright")
+;;  :hook (python-mode . (lambda ()
+;;                         (require 'lsp-pyright)
+;;                         (lsp))))
 
+
+(use-package! lsp
+  :init
+  (setq lsp-pyls-plugins-pylint-enabled t)
+  (setq lsp-pyls-plugins-autopep8-enabled nil)
+  (setq lsp-pyls-plugins-yapf-enabled t)
+  (setq lsp-pyls-plugins-pyflakes-enabled nil)
+)
 

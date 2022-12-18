@@ -1,29 +1,6 @@
 ;;;  -*- lexical-binding: t -*-
 ;; prems-org/config.el --- Configure what was loaded from prems-org/packages.el
 
-;;;
-;;Setup org-present to start default setting
-;;;
-(after! org-present
-  (setq-default org-present-text-scale 2)
-  (add-hook 'org-present-mode-hook
-            (lambda ()
-              (org-present-big)
-              (org-display-inline-images)
-              (org-present-hide-cursor)
-              (org-present-read-only)
-              ;;(toggle-frame-fullscreen)
-              ))
-  (add-hook 'org-present-mode-quit-hook
-            (lambda ()
-              (org-present-small)
-              (org-remove-inline-images)
-              (org-present-show-cursor)
-              (org-present-read-write)
-              ;;(toggle-frame-fullscreen)
-              )))
-
-
 (defun pm/_org-files-setup()
   ;; Agenda org-mode files
   org-agenda-files
@@ -582,8 +559,114 @@
   (run-at-time nil nil #'org-appear--set-elements))
 
 
-(use-package! org-slideshow
+(after! org-slideshow
+  (use-package! org-slideshow
+    :config
+    ;;:hook (org-mode . org-slideshow-mode)
+    )
+  )
+
+(use-package! org-roam
   :after org
   :config
-  ;;:hook (org-mode . org-slideshow-mode)
+  (setq
+   org-roam-directory (expand-file-name "roam" org-directory)
+   org-roam-index-file (expand-file-name "index.org" org-roam-directory)))
+
+(use-package! visual-fill-column
+  :after org-present
+  :config
+  (setq visual-fill-column-width 110
+        visual-fill-column-center-text t))
+
+;;;
+;;Setup org-present to start default setting
+;;;
+(after! org-present
+  (use-package! org-present
+    :hook (
+           (org-present-mode . (lambda () (pm/org-present-hook)))
+           ;;(org-present-quit . (lambda () (pm/org-present-quit-hook)))
+           (org-present-after-navigate-functions . (lambda () (pm/org-present-prepare-slide)))
+           )
+    :config
+    ()
   )
+)
+
+;;;
+;;Setup org-tree-slide presnetation mode
+;;;
+(after! org
+  (map! :leader :n "t p" #'org-tree-slide-mode))
+
+(defvar pm/tree-slide-hide-meta-line-p nil)
+(defun pm/tree-slide-hide-meta-line ()
+  (interactive)
+  (setq pm/tree-slide-hide-meta-line-p t)
+  (set-face-attribute 'org-meta-line nil
+                      :foreground (face-attribute 'default :background)))
+(defun pm/tree-slide-show-meta-line ()
+  (interactive)
+  (setq pm/tree-slide-hide-meta-line-p nil)
+  (set-face-attribute 'org-meta-line nil :foreground nil))
+
+(defun pm/tree-slide-toggle-meta-line ()
+  (interactive)
+  (if pm/tree-slide-hide-meta-line-p
+      (pm/tree-slide-show-meta-line) (pm/tree-slide-hide-meta-line)))
+
+(after! org-tree-slide
+  (use-package! org-tree-slide
+    :after org
+    :defer t
+    :commands org-tree-slide-mode
+    ;;:hook ((org-tree-slide-play . (lambda () (pm/tree-slide-faces-at-start-present)))
+    ;;       (org-tree-slide-stop . (lambda () (pm/tree-slide-faces-at-stop-present))))
+
+    :config
+    (org-tree-slide-presentation-profile)
+    (setq
+     org-tree-slide-activate-message " Presentation Started !! "
+     org-tree-slide-deactivate-message " Presentation Ended !! "
+     org-tree-slide-slide-in-effect nil ; Ugly effect, slower on wsl2
+     org-tree-slide-skip-outline-level 4
+     org-tree-slide-modeline-display 'outside
+     org-tree-slide-header t
+     )
+
+    ;; Prettyfy does a decent job, dont remove
+    ;;(remove-hook! 'org-tree-slide-mode-hook
+             ;;#'+org-present-prettify-slide-h)
+
+    (remove-hook! 'org-tree-slide-play-hook
+       #'+org-present-hide-blocks-h
+
+    )
+
+    (map! :map org-tree-slide-mode-map
+          :n "C-j" #'org-tree-slide-move-next-tree
+          :n "C-k"  #'org-tree-slide-move-previous-tree)
+
+    (add-hook! 'org-tree-slide-play-hook
+               ;;#'pm/tree-slide-hide-meta-line         ;; +#BEGIN_SRC kind to be hidden
+               #'pm/tree-slide-faces-at-start-present)
+
+    (add-hook! 'org-tree-slide-stop-hook
+               #'pm/tree-slide-faces-at-stop-present)
+
+    (add-hook! org-tree-slide-mode-after-narrow-hook #'org-display-inline-images)
+
+    ;; remove unnamed advice
+    (advice-mapc
+     (lambda (adv prop)
+       (advice-remove 'org-tree-slide--display-tree-with-narrow adv))
+     'org-tree-slide--display-tree-with-narrow)
+    )
+  )
+
+(defun pm/tree-slide-update-meta-line ()
+  (interactive)
+  (when pm/tree-slide-hide-meta-line-p
+    (pm/tree-slide-hide-meta-line)))
+(add-hook! after-enable-theme-hook #'pm/tree-slide-update-meta-line)

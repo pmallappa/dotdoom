@@ -37,7 +37,7 @@
     (c-offsets-alist                        . (
                                                (arglist-close
                                                 .
-                                                prems-c/lineup-arglist-tabs-only)
+                                                pm/lineup-arglist-tabs-only)
                                                (substatement-open                 . 0)
                                                (statement-cont                    . (c-lineup-assignments +))
                                                ;;(arglist-cont-nonempty)

@@ -11,4 +11,15 @@
   (cpp-highlight-buffer t))
 
 ;;;###autoload
+(defun pm/lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+	 (column (c-langelem-2nd-pos c-syntactic-element))
+	 (offset (- (1+ column) anchor))
+	 (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+
+;;;###autoload
 (add-hook 'c-mode-common-hook 'pm/cpp-highlight-if0)

@@ -1,4 +1,4 @@
-;;; prems-cc/config.el 
+;;; prems-cc/config.el  -*- lexical-binding: t; -*-
 
 (use-package! ccls
   :hook ((c-mode c++-mode objc-mode cuda-mode) .
@@ -21,7 +21,8 @@
 (after! cc-mode
   (setq +cc-default-header-file-mode 'c++-mode)
 
-  (c-toggle-hungry-state 1)
+  ;; disable this as it causes issues when do doom/reload
+  ;;(c-toggle-hungry-state 1)
 
   (add-hook! '(c-mode) (lambda()
                          ;;(c-add-style "prems/c" prems-c-style t)

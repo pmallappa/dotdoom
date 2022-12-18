@@ -22,12 +22,12 @@
 
        :completion
        (company  
-	 +childframe)      ; the ultimate code completion backend
+        +childframe)      ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
-	 +perscient -childframe
-	 +fuzzy +icons)
+        +perscient -childframe
+        +fuzzy +icons)
        ;;vertico             ; the search engine of the future
 
        :ui
@@ -85,7 +85,7 @@
 
        :checkers
        (syntax 
-	 +childframe)      ; tasing you for every semicolon you forget
+        +childframe)      ; tasing you for every semicolon you forget
        ;;(spell +flyspell) ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
@@ -159,21 +159,22 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org                ; organize your plain life in plain text
-        ;; +brain           ; for org-brain support
-        ;; +dragndrop       ; file drag & drop support
-        +gnuplot            ; render gnuplot
-        +hugo               ; use Emacs for hugo blogging
-        ;; +ipython         ; So much more asynchronous, overshadowed by jupyter
-        ;; +journal         ; journaling in org
-        +jupyter            ; enable jupyter integration
-        +pandoc             ; pandoc integration into org's exporter
-       ;;+pomodoro          ; be fruitful with the tomato technique
-        +present            ; using Emacs for presentations
-        +roam)              ; some sort of faster note system
+        ;; +brain          ; for org-brain support
+        ;; +dragndrop      ; file drag & drop support
+        ;;+gnuplot         ; render gnuplot
+        ;;+hugo            ; use Emacs for hugo blogging
+        ;; +ipython        ; So much more asynchronous, overshadowed by jupyter
+        ;; +journal        ; journaling in org
+        +jupyter           ; enable jupyter integration
+        +pandoc            ; pandoc integration into org's exporter
+       ;;+pomodoro         ; be fruitful with the tomato technique
+        +present           ; using Emacs for presentations
+        +roam2)            ; some sort of faster note system
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       (python  +lsp)      ; beautiful is better than ugly
+       (python             ; beautiful is better than ugly
+        +pyenv +lsp +pyls)
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6

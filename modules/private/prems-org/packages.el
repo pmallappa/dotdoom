@@ -34,19 +34,23 @@
            ;;; is changed, only useful if the package is bieng developed
            ;;;:build (:not compile)
   )
+
+;;;
+;; VISUAL FILL COLUMN
+;; helps in presentations
+(package! visual-fill-column)
+
 ;;;
 ;; ORG-PRESENT
 ;;   Make any org file an presentation
 ;;;
 ;;(package! org-present)
-;;(after! org
-;;  (use-package! org-present)
-;;  )
 
 (package! org-superstar)
 
-
 (package! org-super-agenda)
+
+(package! org-tree-slide)
 
 ;;;
 ;; Use contributed packages
