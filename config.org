@@ -44,8 +44,8 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "JetBrains Mono" :size 16)
-      doom-big-font (font-spec :family "JetBrains Mono" :size 26)
-      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 16)
+      doom-big-font (font-spec :family "JuliaMono" :size 26)
+      doom-variable-pitch-font (font-spec :family "Alegreya" :size 16)
       doom-unicode-font (font-spec :family "JuliaMono")
       doom-serif-font (font-spec :family "Noto Serif" :weight 'regular))
 
