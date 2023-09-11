@@ -422,11 +422,18 @@
 ;;;
 ;; ORG-SUPERSTAR
 ;;;
-(use-package! org-superstar
+(after! org-superstar
   :config
   (setq org-superstar-special-todo-items t
+        ;;org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
         org-superstar-headline-bullets-list '("◉" "○" "✸" "✿" "✤" "✜" "◆" "▶")
         org-superstar-prettify-item-bullets t )
+  (setq org-superstar-special-todo-items t)
+  (setq org-superstar-todo-bullet-alist
+        '(("TODO" . ?☐)
+          ("WAITING" . ?☕)
+          ("CANCELLED" . ?✘)
+          ("DONE" . ?✔)))
         )
   (add-hook 'org-mode-hook (lambda ()
                              (org-superstar-mode 1)))

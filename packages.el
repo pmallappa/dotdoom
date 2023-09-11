@@ -60,6 +60,11 @@
 ;; Vim (and evil) move the cursor one character back when exiting insert mode
 (setq evil-move-cursor-back nil)
 
+(package! dracula-theme
+  :recipe (:host github
+          :repo "dracula/emacs"
+          :files("dracula-theme.el")))
+
 ;;;
 (package! emacs-snippets
   :recipe (:host github
