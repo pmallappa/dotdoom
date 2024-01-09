@@ -42,7 +42,10 @@
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
-;(unpin! pinned-package)
+(unpin! 
+  ;;org
+  ;;org-roam
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; RESTORE EMACS to work in EMACS mode
@@ -64,6 +67,11 @@
   :recipe (:host github
           :repo "dracula/emacs"
           :files("dracula-theme.el")))
+
+(package! solair-mode :disable t)
+(after! solair-mode 
+  (global-solair-mode -1 )
+)
 
 ;;;
 (package! emacs-snippets

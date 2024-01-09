@@ -1,3 +1,15 @@
+;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
+;; Place your private configuration here! Remember, you do not need to run 'doom
+;; sync' after modifying this file!
+
+;;<<doom-config-prologue>>
+;;<<doom-config-user-details>>
+;;<<doom-config-font-details>>
+;;<<doom-config-ui>>
+;;<<doom-config-help>>
+;;<<doom-config-epilogue>>
+
 ;; config/prologue
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
@@ -82,3 +94,16 @@
 ;;(load! "+org.el")
 (load! "+ui.el")
 ;;(load! "+misc.el")
+
+(message "end of iceage")
+
+;;; Start - Leetcode configuration
+(add-hook 'leetcode-solution-mode-hook
+          (lambda() (flycheck-mode -1)))
+
+(setq leetcode-prefer-language "python3")
+(setq leetcode-prefer-sql "mysql")
+
+(setq leetcode-save-solutions t)
+(setq leetcode-directory "${HOME}/devel/progs/leetcode")
+;;; End - Leetcode configuration

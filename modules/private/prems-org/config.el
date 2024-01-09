@@ -304,44 +304,62 @@
 ;;;
 (defun pm/unused()
   (setq
-          ;; Use full outline paths for refile targets - we file directly with IDO
-          org-refile-use-outline-path t
-          ;; Targets complete directly with IDO
-          org-outline-path-complete-in-steps nil
-          ;; Allow refile to create parent tasks with confirmation
-          org-refile-allow-creating-parent-nodes 'confirm
-          ;; never leave empty lines in collapsed view
-          org-cycle-separator-lines 0
+   ;; Use full outline paths for refile targets - we file directly with IDO
+   org-refile-use-outline-path t
+   ;; Targets complete directly with IDO
+   org-outline-path-complete-in-steps nil
+   ;; Allow refile to create parent tasks with confirmation
+   org-refile-allow-creating-parent-nodes 'confirm
+   ;; never leave empty lines in collapsed view
+   org-cycle-separator-lines 0
 
-          ;; start up showing images
-          org-startup-with-inline-images t
+   ;; start up showing images
+   org-startup-with-inline-images t
 
-          ;; Enable display of the time grid so we can see the marker for the
-          ;; current time
-          org-agenda-time-grid
-          '((daily today remove-match)
-            #("----------------" 0 16 (org-heading t))
-            (0900 1100 1300 1500 1700))
-          ;; keep the agenda filter until manually removed
-          org-agenda-persistent-filter t
+   ;; Enable display of the time grid so we can see the marker for the
+   ;; current time
+   org-agenda-time-grid
+   '((daily today remove-match)
+     #("----------------" 0 16 (org-heading t))
+     (0900 1100 1300 1500 1700))
+   ;; keep the agenda filter until manually removed
+   org-agenda-persistent-filter t
 
-          ;; Use sticky agenda's so they persist
-          org-agenda-sticky t
+   ;; Use sticky agenda's so they persist
+   org-agenda-sticky t
 
-          ;; Compact the block agenda view
-          org-agenda-compact-blocks t
-          ;; Show all agenda dates - even if they are empty
-          org-agenda-show-all-dates t
-          )
+   ;; Compact the block agenda view
+   org-agenda-compact-blocks t
+   ;; Show all agenda dates - even if they are empty
+   org-agenda-show-all-dates t
+   )
   )
+
+
+(defun pm/_org-mode-hide-stars ()
+  "Make sure that both the background and foreground colors of the org-hide face
+      matches the background of the default face."
+  (interactive)
+  (message "hiding stars")
+  (set-face-attribute 'org-hide nil
+                      :foreground
+                      (face-attribute 'default :background nil t)
+                      ;;:background
+                      ;;(face-attribute 'default :foreground nil t)
+                      )
+  )
+
+(defun pm/_org-hide-stars-delay ()
+  (run-at-time 1 nil #'pm/_org-mode-hide-stars))
+(add-hook 'after-enable-theme-hook #'pm/_org-hide-stars-delay)
 
 ;;;
 ;; UI / Font
 ;;;
 (defun pm/_org-mode-font-setup()
   (setq
-  ;; for the leuven theme, fontify the whole heading line
-  org-fontify-whole-heading-line t)
+   ;; for the leuven theme, fontify the whole heading line
+   org-fontify-whole-heading-line t)
 
   (dolist (face '((org-level-1 . 1.3)
                   (org-level-2 . 1.2)
@@ -409,7 +427,7 @@
 (after! org
   (add-hook! org-mode :append
              #'mixed-pitch-mode
-             #'solaire-mode
+             ;;#'solaire-mode
              #'variable-pitch-mode)
   )
 (setq mixed-pitch-variable-pitch-cursor nil)
@@ -434,9 +452,9 @@
           ("WAITING" . ?☕)
           ("CANCELLED" . ?✘)
           ("DONE" . ?✔)))
-        )
-  (add-hook 'org-mode-hook (lambda ()
-                             (org-superstar-mode 1)))
+  )
+(add-hook 'org-mode-hook (lambda ()
+                           (org-superstar-mode 1)))
 
 (setq org-ellipsis " ▾ "
       org-priority-highest ?A
@@ -555,15 +573,16 @@
 ;; which occur at the border a bit more fiddley. We can improve this situation
 ;; without sacrificing visual amenities with the org-appear package.
 ;;;;;;;;;;;;;;;
-(use-package! org-appear
-  :hook (org-mode . org-appear-mode)
-  :config
-  (setq org-appear-autoemphasis t
-        org-appear-autosubmarkers t
-        org-appear-autolinks nil)
-  ;; for proper first-time setup, `org-appear--set-elements'
-  ;; needs to be run after other hooks have acted.
-  (run-at-time nil nil #'org-appear--set-elements))
+(after! org
+  (use-package! org-appear
+    ;;:hook (org-mode . org-appear-mode)
+    :config
+    (setq org-appear-autoemphasis t
+          org-appear-autosubmarkers t
+          org-appear-autolinks nil)
+    ;; for proper first-time setup, `org-appear--set-elements'
+    ;; needs to be run after other hooks have acted.
+    (run-at-time nil nil #'org-appear--set-elements)))
 
 
 (after! org-slideshow
@@ -573,9 +592,10 @@
     )
   )
 
-(use-package! org-roam
+(after! org-roam
   :after org
   :config
+  :custom
   (setq
    org-roam-directory (expand-file-name "roam" org-directory)
    org-roam-index-file (expand-file-name "index.org" org-roam-directory)))
@@ -598,8 +618,8 @@
            )
     :config
     ()
+    )
   )
-)
 
 ;;;
 ;;Setup org-tree-slide presnetation mode
@@ -644,12 +664,12 @@
 
     ;; Prettyfy does a decent job, dont remove
     ;;(remove-hook! 'org-tree-slide-mode-hook
-             ;;#'+org-present-prettify-slide-h)
+    ;;#'+org-present-prettify-slide-h)
 
     (remove-hook! 'org-tree-slide-play-hook
-       #'+org-present-hide-blocks-h
+      #'+org-present-hide-blocks-h
 
-    )
+      )
 
     (map! :map org-tree-slide-mode-map
           :n "C-j" #'org-tree-slide-move-next-tree

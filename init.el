@@ -213,10 +213,10 @@
 
 
        :private
+       prems-org
        prems-cc
        prems-py
        prems-rust
-       prems-org
        )
 
 (setq browse-url-browser-function 'eww-browse-url)
